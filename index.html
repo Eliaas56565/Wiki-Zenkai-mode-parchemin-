@@ -6,7 +6,7 @@
     <title>Zenkai NRP — Archives Shinobi</title>
     <style>
         body {
-            /* Un fond d'écran sombre, élégant et immersif (style parchemin/shinobi) */
+            /* Fond sombre élégant */
             background-color: #06040a;
             background-image: 
                 radial-gradient(circle at center, #1f1335 0%, #06040a 80%),
@@ -18,7 +18,7 @@
             align-items: center;
             min-height: 100vh;
             font-family: 'Courier New', Courier, monospace;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
         #seal-screen {
@@ -33,16 +33,19 @@
             align-items: center;
             z-index: 1000;
             transition: opacity 0.8s ease, transform 0.8s ease;
+            /* Supprime le fond blanc et la bordure du cadre précédent */
+            background: transparent; 
         }
 
-        /* Conteneur du rouleau à taille réelle et nette */
+        /* Conteneur du rouleau - juste l'image et le logo */
         .scroll-container {
             position: relative;
             cursor: pointer;
             animation: float 3.5s ease-in-out infinite;
             display: inline-block;
-            /* Magnifique lueur violette/dorée douce autour du rouleau */
+            /* Lueur globale autour du rouleau */
             filter: drop-shadow(0 20px 40px rgba(110, 50, 180, 0.4));
+            margin-bottom: 40px; /* Espace pour le texte en bas */
         }
 
         @keyframes float {
@@ -50,21 +53,24 @@
             50% { transform: translateY(-8px); }
         }
 
-        /* L'image garde sa taille naturelle nette (max 650px de large) */
+        /* L'image de fond du rouleau - taille naturelle */
         .keychain-img {
-            max-width: 650px;
-            width: 90vw;
+            max-width: 650px; /* Limite la taille sur grands écrans */
+            width: 90vw;      /* S'adapte sur mobiles */
             height: auto;
             display: block;
         }
 
-        /* Le logo positionné pile poil au centre sur le sceau de ton image */
+        /* LE LOGO AMÉLIORÉ : Positionné au pixel près */
         .seal-logo {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            /* --- CES VALEURS SONT LES CLÉS --- */
+            top: 52.5%;  /* Ajuste de haut en bas pour centrer sur le sceau violet */
+            left: 50%;   /* Ajuste de gauche à droite */
             transform: translate(-50%, -50%);
-            width: 23%; /* Ajusté pour correspondre à la taille du sceau sur l'image */
+            /* ---------------------------------- */
+            
+            width: 22%;  /* Taille du logo par rapport au rouleau */
             height: auto;
             aspect-ratio: 1 / 1;
             border-radius: 50%;
@@ -72,6 +78,8 @@
             border: 2px solid #ffd700;
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.7), 0 0 40px rgba(138, 43, 226, 0.8);
             transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
+            /* S'assure que le logo est bien au premier plan */
+            z-index: 10; 
         }
 
         .scroll-container:hover .seal-logo {
@@ -83,7 +91,9 @@
         .seal-instruction {
             color: #d8b4fe;
             font-size: 0.9em;
-            margin-top: 35px;
+            /* Position fixe en bas */
+            position: absolute;
+            bottom: 40px;
             letter-spacing: 2.5px;
             text-transform: uppercase;
             animation: pulse 1.5s infinite;
@@ -151,8 +161,12 @@
 
     <!-- ÉCRAN DU ROULEAU FERMÉ -->
     <div id="seal-screen">
+        <!-- Pas de titre HTML ici, il est dans ton image de fond -->
+        
         <div class="scroll-container" onclick="breakSeal()" title="Briser le sceau">
+            <!-- Ton image de fond complète -->
             <img src="fond-rouleau.jpg" alt="Rouleau Shinobi" class="keychain-img">
+            <!-- Ton logo par-dessus, positionné au pixel près -->
             <img src="logo.jpg" alt="Sceau Zenkai" class="seal-logo">
         </div>
 
