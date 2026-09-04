@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zenkai NRP — Archives Shinobi</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             background-color: #0b0711;
             margin: 0;
@@ -17,13 +21,14 @@
             overflow-x: hidden;
         }
 
+        /* --- ÉCRAN GLOBAL --- */
         #seal-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, #1a0f2e 0%, #0b0711 100%);
+            background: radial-gradient(circle at center, #1e1132 0%, #0b0711 75%);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -37,87 +42,93 @@
             font-size: 1.6em;
             letter-spacing: 5px;
             text-transform: uppercase;
-            margin-bottom: 35px;
-            text-shadow: 0 0 12px rgba(184, 134, 11, 0.7);
+            margin-bottom: 50px;
+            text-shadow: 0 0 15px rgba(184, 134, 11, 0.8);
             text-align: center;
         }
 
-        .scroll-container {
+        /* --- CONTENEUR PRINCIPAL DU ROULEAU --- */
+        .scroll-wrapper {
             position: relative;
+            width: 480px;
+            height: 160px;
             display: flex;
-            align-items: center;
             justify-content: center;
-            animation: float 3.5s ease-in-out infinite;
+            align-items: center;
             cursor: pointer;
+            animation: float 3.5s ease-in-out infinite;
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(1deg); }
+            50% { transform: translateY(-12px) rotate(0.5deg); }
         }
 
-        /* Corps horizontal du rouleau de type League of Legends */
-        .scroll-cylinder {
-            position: relative;
-            width: 320px;
-            height: 110px;
-            background: linear-gradient(0deg, #1e0f2e, #2e1b45 45%, #3a2554 50%, #2e1b45 55%, #1e0f2e);
-            border-radius: 12px;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Embouts en bois/métal à gauche et à droite */
-        .scroll-cylinder::before, .scroll-cylinder::after {
-            content: '';
+        /* Le cylindre horizontal en tissu/parchemin bleu nuit */
+        .scroll-body {
             position: absolute;
-            top: -6px;
-            bottom: -6px;
-            width: 20px;
-            background: linear-gradient(0deg, #1a0f2e, #4a3263, #1a0f2e);
-            border: 2px solid #b8860b;
-            border-radius: 50%;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+            width: 420px;
+            height: 120px;
+            background: linear-gradient(180deg, #150b24 0%, #291b3d 30%, #3d2657 50%, #291b3d 70%, #150b24 100%);
+            border-radius: 6px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 0 25px rgba(138, 43, 226, 0.3);
             z-index: 1;
         }
-        .scroll-cylinder::before { left: -10px; }
-        .scroll-cylinder::after { right: -10px; }
 
-        /* Cordelette centrale */
-        .scroll-rope {
+        /* Embouts en bois doré / cylindres latéraux */
+        .scroll-cap-left, .scroll-cap-right {
             position: absolute;
-            height: 126px;
-            width: 16px;
-            background: #8c7355;
-            border-left: 2px solid #3a2e1d;
-            border-right: 2px solid #3a2e1d;
+            top: 10px;
+            bottom: 10px;
+            width: 32px;
+            background: linear-gradient(90deg, #5c4314 0%, #d4af37 35%, #fff2a3 50%, #d4af37 65%, #42300d 100%);
+            border-radius: 6px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.8);
             z-index: 2;
         }
 
-        /* Logo central */
-        .seal-logo {
-            position: relative;
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            border: 3px solid #ffd700;
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.8), 0 0 50px rgba(138, 43, 226, 0.9);
-            object-fit: cover;
-            z-index: 3;
-            transition: transform 0.3s, box-shadow 0.3s;
+        .scroll-cap-left {
+            left: -12px;
         }
 
-        .scroll-container:hover .seal-logo {
-            transform: scale(1.06);
-            box-shadow: 0 0 35px rgba(255, 215, 0, 1), 0 0 70px rgba(138, 43, 226, 1);
+        .scroll-cap-right {
+            right: -12px;
+        }
+
+        /* La corde tressée en diagonale autour du rouleau */
+        .scroll-rope {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            background: repeating-linear-gradient(45deg, #a68b5b, #a68b5b 6px, #59462c 6px, #59462c 12px);
+            border-radius: 50%;
+            z-index: 3;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+        }
+
+        /* Le sceau / Logo central */
+        .seal-logo {
+            position: relative;
+            width: 175px;
+            height: 175px;
+            border-radius: 50%;
+            border: 4px solid #ffd700;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 0 0 60px rgba(138, 43, 226, 0.9);
+            object-fit: cover;
+            z-index: 4;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .scroll-wrapper:hover .seal-logo {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 1), 0 0 80px rgba(138, 43, 226, 1);
         }
 
         .seal-instruction {
             color: #b8a9d9;
-            font-size: 0.85em;
-            margin-top: 35px;
+            font-size: 0.9em;
+            margin-top: 50px;
             letter-spacing: 2px;
             text-transform: uppercase;
             animation: pulse 1.5s infinite;
@@ -128,6 +139,7 @@
             50% { opacity: 1; }
         }
 
+        /* --- CONTENU DU PARCHEMIN DÉROULÉ --- */
         #main-content {
             max-width: 850px;
             width: 90%;
@@ -181,19 +193,23 @@
 </head>
 <body>
 
+    <!-- ÉCRAN DU ROULEAU FERMÉ -->
     <div id="seal-screen">
         <div class="welcome-title">— Archives de Zenkai NRP —</div>
         
-        <div class="scroll-container" onclick="breakSeal()" title="Briser le sceau">
-            <div class="scroll-cylinder">
-                <div class="scroll-rope"></div>
-                <img src="logo.jpg" alt="Sceau Zenkai" class="seal-logo">
-            </div>
+        <div class="scroll-wrapper" onclick="breakSeal()" title="Briser le sceau">
+            <div class="scroll-cap-left"></div>
+            <div class="scroll-body"></div>
+            <div class="scroll-cap-right"></div>
+            <div class="scroll-rope"></div>
+            <!-- Assure-toi que ton image est nommée exactement logo.jpg sur GitHub -->
+            <img src="logo.jpg" alt="Sceau Zenkai" class="seal-logo">
         </div>
 
         <div class="seal-instruction">[ Cliquez sur le sceau pour briser la protection ]</div>
     </div>
 
+    <!-- CONTENU DU PARCHEMIN DÉROULÉ -->
     <div id="main-content">
         <div class="scroll-header">
             <div class="scroll-symbols">天地</div>
