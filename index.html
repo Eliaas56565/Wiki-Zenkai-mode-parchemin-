@@ -6,7 +6,6 @@
     <title>Zenkai NRP — Archives Shinobi</title>
     <style>
         body {
-            background: radial-gradient(circle at center, #1a0f2b 0%, #08040f 100%);
             margin: 0;
             padding: 0;
             display: flex;
@@ -14,7 +13,9 @@
             align-items: center;
             min-height: 100vh;
             font-family: 'Courier New', Courier, monospace;
-            overflow: hidden;
+            /* Fond de secours uni au cas où l'image ne charge pas */
+            background-color: #0b0711;
+            overflow: hidden; /* Empêche les barres de défilement */
         }
 
         #seal-screen {
@@ -23,93 +24,77 @@
             left: 0;
             width: 100%;
             height: 100%;
+            /* Ton image de fond, étirée pour couvrir tout l'écran */
+            background-image: url('fond-rouleau.jpg');
+            background-size: cover; /* Recouvre tout l'espace */
+            background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            justify-content: center; /* Centre verticalement */
+            align-items: center; /* Centre horizontalement */
             z-index: 1000;
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.8s ease, transform 0.8s ease;
         }
 
-        /* Conteneur avec effet de lueur magique globale derrière le rouleau */
+        /* Conteneur global du rouleau, pour l'animation */
         .scroll-container {
             position: relative;
             cursor: pointer;
-            display: inline-block;
-            animation: float 4s ease-in-out infinite;
-            filter: drop-shadow(0 20px 40px rgba(138, 43, 226, 0.4));
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .scroll-container:hover {
-            transform: scale(1.03) translateY(-5px);
+            animation: float 3.5s ease-in-out infinite;
+            margin-top: -50px; /* Décale le rouleau légèrement vers le haut pour compenser le texte */
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
         }
 
-        .keychain-img {
-            max-width: 700px;
-            width: 90vw;
-            height: auto;
-            display: block;
-            /* Amélioration logicielle du rendu de l'image par le navigateur */
-            image-rendering: -webkit-optimize-contrast;
-        }
-
-        /* Sceau central sublimé avec un contour lumineux éclatant et des reflets dorés */
+        /* Le logo, positionné au pixel près sur le sceau de l'image de fond */
         .seal-logo {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            /* Ces valeurs sont ajustées pour ton image "image_16.png" */
+            top: 52.5%; /* Position verticale sur le sceau */
+            left: 50%;   /* Position horizontale sur le sceau */
             transform: translate(-50%, -50%);
-            width: 22%;
+            width: 22%;  /* Taille du logo par rapport au rouleau */
             height: auto;
-            aspect-ratio: 1 / 1;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #ffdf73;
-            box-shadow: 
-                0 0 25px rgba(255, 215, 0, 0.9), 
-                0 0 50px rgba(147, 51, 234, 0.8),
-                inset 0 0 15px rgba(255, 255, 255, 0.5);
-            transition: all 0.4s ease;
+            opacity: 0.95;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5), 0 0 30px rgba(138, 43, 226, 0.7);
         }
 
         .scroll-container:hover .seal-logo {
-            border-color: #fff;
-            box-shadow: 
-                0 0 35px rgba(255, 215, 0, 1), 
-                0 0 75px rgba(168, 85, 247, 1),
-                inset 0 0 25px rgba(255, 255, 255, 0.8);
-            transform: translate(-50%, -50%) scale(1.06);
+            transform: translate(-50%, -50%) scale(1.05);
+            filter: brightness(1.15);
         }
 
         .seal-instruction {
-            color: #d8b4fe;
-            font-size: 0.9em;
-            margin-top: 35px;
-            letter-spacing: 3px;
+            color: #b8a9d9;
+            font-size: 0.85em;
+            position: absolute;
+            bottom: 40px; /* Position en bas de l'écran */
+            letter-spacing: 2px;
             text-transform: uppercase;
+            animation: pulse 1.5s infinite;
             text-shadow: 0 0 10px rgba(168, 85, 247, 0.6);
-            animation: pulse-text 2s infinite;
         }
 
-        @keyframes pulse-text {
-            0%, 100% { opacity: 0.5; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.02); }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
         }
 
         /* --- CONTENU DU PARCHEMIN DÉROULÉ --- */
         #main-content {
             max-width: 850px;
-            width: 85%;
-            background: linear-gradient(135deg, #f3e5ab 0%, #d4bc82 100%);
-            border: 4px solid #6b4f2c;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.9), inset 0 0 40px rgba(107, 79, 44, 0.2);
-            padding: 40px;
+            width: 90%;
+            background: #e3d3b5;
+            border: 3px solid #8c7355;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.8);
+            padding: 35px;
             color: #2a2015;
             opacity: 0;
             transform: scaleY(0);
@@ -117,7 +102,6 @@
             transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
             display: none;
             margin: 40px auto;
-            border-radius: 4px;
         }
 
         .unsealed #main-content {
@@ -128,32 +112,30 @@
 
         .unsealed #seal-screen {
             opacity: 0;
-            transform: scale(1.15);
+            transform: scale(1.2);
             pointer-events: none;
         }
 
         .scroll-header {
             text-align: center;
-            border-bottom: 2px dashed #8c7355;
-            padding-bottom: 20px;
-            margin-bottom: 25px;
+            border-bottom: 2px dashed #a68b5b;
+            padding-bottom: 18px;
+            margin-bottom: 22px;
         }
 
         .scroll-symbols {
-            font-size: 3em;
+            font-size: 2.8em;
             font-weight: bold;
-            letter-spacing: 15px;
+            letter-spacing: 12px;
             color: #1a120b;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
         .scroll-subtitle {
-            font-size: 0.85em;
+            font-size: 0.8em;
             color: #7a6345;
             text-transform: uppercase;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             font-weight: bold;
-            margin-top: 5px;
         }
     </style>
 </head>
@@ -161,8 +143,10 @@
 
     <!-- ÉCRAN DU ROULEAU FERMÉ -->
     <div id="seal-screen">
+        <!-- Pas besoin de titre HTML ici car il est dans ton image de fond -->
+        
         <div class="scroll-container" onclick="breakSeal()" title="Briser le sceau">
-            <img src="fond-rouleau.jpg" alt="Rouleau Shinobi" class="keychain-img">
+            <!-- Le logo fait office de sceau central, positionné au pixel près -->
             <img src="logo.jpg" alt="Sceau Zenkai" class="seal-logo">
         </div>
 
@@ -176,7 +160,7 @@
             <div class="scroll-subtitle">— Encyclopédie Shinobi & Archives Officielles —</div>
         </div>
         <div style="text-align: center; line-height: 1.9;">
-            <p style="font-size: 1.2em; color: #5a1111;"><strong>Sceau rompu avec succès.</strong></p>
+            <p style="font-size: 1.1em; color: #5a1111;"><strong>Sceau rompu avec succès.</strong></p>
             <p style="font-style: italic; color: #5a4223;">Bienvenue dans les dossiers classifiés de l'encyclopédie Zenkai NRP.</p>
         </div>
     </div>
