@@ -6,7 +6,6 @@
     <title>Zenkai NRP — Archives Shinobi</title>
     <style>
         body {
-            /* Fond sombre élégant */
             background-color: #06040a;
             background-image: 
                 radial-gradient(circle at center, #1f1335 0%, #06040a 80%),
@@ -18,7 +17,7 @@
             align-items: center;
             min-height: 100vh;
             font-family: 'Courier New', Courier, monospace;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
         #seal-screen {
@@ -33,19 +32,16 @@
             align-items: center;
             z-index: 1000;
             transition: opacity 0.8s ease, transform 0.8s ease;
-            /* Supprime le fond blanc et la bordure du cadre précédent */
             background: transparent; 
         }
 
-        /* Conteneur du rouleau - juste l'image et le logo */
         .scroll-container {
             position: relative;
             cursor: pointer;
             animation: float 3.5s ease-in-out infinite;
             display: inline-block;
-            /* Lueur globale autour du rouleau */
             filter: drop-shadow(0 20px 40px rgba(110, 50, 180, 0.4));
-            margin-bottom: 40px; /* Espace pour le texte en bas */
+            margin-bottom: 40px;
         }
 
         @keyframes float {
@@ -53,45 +49,19 @@
             50% { transform: translateY(-8px); }
         }
 
-        /* L'image de fond du rouleau - taille naturelle */
         .keychain-img {
-            max-width: 650px; /* Limite la taille sur grands écrans */
-            width: 90vw;      /* S'adapte sur mobiles */
+            /* L'image du nouveau parchemin avec le logo intégré */
+            max-width: 950px; /* Ajuste la taille max selon tes besoins */
+            width: 95vw;
             height: auto;
             display: block;
         }
 
-        /* LE LOGO AMÉLIORÉ : Positionné au pixel près */
-        .seal-logo {
-            position: absolute;
-            /* --- CES VALEURS SONT LES CLÉS --- */
-            top: 52.5%;  /* Ajuste de haut en bas pour centrer sur le sceau violet */
-            left: 50%;   /* Ajuste de gauche à droite */
-            transform: translate(-50%, -50%);
-            /* ---------------------------------- */
-            
-            width: 22%;  /* Taille du logo par rapport au rouleau */
-            height: auto;
-            aspect-ratio: 1 / 1;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #ffd700;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.7), 0 0 40px rgba(138, 43, 226, 0.8);
-            transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
-            /* S'assure que le logo est bien au premier plan */
-            z-index: 10; 
-        }
-
-        .scroll-container:hover .seal-logo {
-            transform: translate(-50%, -50%) scale(1.06);
-            filter: brightness(1.15);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 1), 0 0 60px rgba(168, 85, 247, 1);
-        }
+        /* Le logo superposé est maintenant dans l'image, donc pas besoin d'un deuxième <img> ici */
 
         .seal-instruction {
             color: #d8b4fe;
             font-size: 0.9em;
-            /* Position fixe en bas */
             position: absolute;
             bottom: 40px;
             letter-spacing: 2.5px;
@@ -105,7 +75,6 @@
             50% { opacity: 1; }
         }
 
-        /* --- CONTENU DU PARCHEMIN DÉROULÉ --- */
         #main-content {
             max-width: 850px;
             width: 90%;
@@ -159,18 +128,16 @@
 </head>
 <body>
 
-    <!-- ÉCRAN DU ROULEAU FERMÉ -->
+    <!-- ÉCRAN DU PARCHEMIN FERMÉ -->
     <div id="seal-screen">
-        <!-- Pas de titre HTML ici, il est dans ton image de fond -->
         
         <div class="scroll-container" onclick="breakSeal()" title="Briser le sceau">
-            <!-- Ton image de fond complète -->
-            <img src="fond-rouleau.jpg" alt="Rouleau Shinobi" class="keychain-img">
-            <!-- Ton logo par-dessus, positionné au pixel près -->
-            <img src="logo.jpg" alt="Sceau Zenkai" class="seal-logo">
+            <!-- Ton image finale, qui contient le rouleau ET le logo intégré -->
+            <img src="image_8a4139.png" alt="Parchemin Shinobi avec Sceau Intégré" class="keychain-img">
+            <!-- Plus besoin du deuxième <img> pour le logo -->
         </div>
 
-        <div class="seal-instruction">[ Cliquez sur le sceau pour briser la protection ]</div>
+        <div class="seal-instruction">[ Cliquez sur le parchemin pour briser la protection ]</div>
     </div>
 
     <!-- CONTENU DU PARCHEMIN DÉROULÉ -->
