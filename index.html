@@ -37,26 +37,17 @@
             font-size: 1.5em;
             letter-spacing: 4px;
             text-transform: uppercase;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-shadow: 0 0 10px rgba(184, 134, 11, 0.7);
             text-align: center;
         }
 
-        /* Conteneur qui intègre ton image de fond du rouleau */
+        /* Conteneur principal qui affiche ton image de porte-clés entière */
         .scroll-container {
             position: relative;
-            width: 650px;
-            height: 350px;
-            /* On utilise ton image de référence directement comme visuel du rouleau */
-            background-image: url('fond-rouleau.jpg');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             cursor: pointer;
             animation: float 3.5s ease-in-out infinite;
+            display: inline-block;
         }
 
         @keyframes float {
@@ -64,24 +55,38 @@
             50% { transform: translateY(-8px); }
         }
 
-        /* Ton logo positionné au millimètre au centre exact du sceau de l'image */
+        .keychain-img {
+            max-width: 450px;
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8));
+        }
+
+        /* Ton logo positionné exactement par-dessus la zone du sceau du porte-clés */
         .seal-logo {
-            width: 155px;
-            height: 155px;
+            position: absolute;
+            top: 50%;
+            left: 31%; /* Ajuste ce pourcentage si besoin pour le décaler un tout petit peu à gauche ou à droite */
+            transform: translate(-50%, -50%);
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
+            border: 3px solid #ffd700;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.8), 0 0 50px rgba(138, 43, 226, 0.9);
             object-fit: cover;
-            transition: transform 0.3s ease, filter 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .scroll-container:hover .seal-logo {
-            transform: scale(1.04);
-            filter: brightness(1.15);
+            transform: translate(-50%, -50%) scale(1.05);
+            box-shadow: 0 0 35px rgba(255, 215, 0, 1), 0 0 70px rgba(138, 43, 226, 1);
         }
 
         .seal-instruction {
             color: #b8a9d9;
             font-size: 0.85em;
-            margin-top: 10px;
+            margin-top: 30px;
             letter-spacing: 2px;
             text-transform: uppercase;
             animation: pulse 1.5s infinite;
@@ -150,6 +155,7 @@
         <div class="welcome-title">— Archives de Zenkai NRP —</div>
         
         <div class="scroll-container" onclick="breakSeal()" title="Briser le sceau">
+            <img src="porte-cles.jpg" alt="Rouleau Shinobi" class="keychain-img">
             <img src="logo.jpg" alt="Sceau Zenkai" class="seal-logo">
         </div>
 
