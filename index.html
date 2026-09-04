@@ -1,82 +1,244 @@
-__NOTOC__
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rouleau des Archives - Zenkai NRP</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-<div style="max-width: 850px; margin: 0 auto; background: #e3d3b5; border: 3px solid #8c7355; border-radius: 2px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); padding: 30px; font-family: 'Courier New', Courier, monospace; color: #2a2015;">
+        .scroll-container {
+            max-width: 850px;
+            width: 100%;
+            margin: 0 auto;
+            background: #e3d3b5;
+            border: 3px solid #8c7355;
+            border-radius: 2px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+            padding: 30px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #2a2015;
+            box-sizing: border-box;
+        }
 
-<!-- EN-TÊTE DU ROULEAU : STYLE CANONIQUE (SYMBOLES INTÉGRÉS) -->
-<div style="text-align: center; border-bottom: 2px dashed #a68b5b; padding-bottom: 18px; margin-bottom: 22px;">
-    <div style="font-size: 2.8em; font-weight: bold; letter-spacing: 12px; color: #1a120b; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); margin-bottom: 5px;">
-        天地
+        /* EN-TÊTE DU ROULEAU */
+        .scroll-header {
+            text-align: center;
+            border-bottom: 2px dashed #a68b5b;
+            padding-bottom: 18px;
+            margin-bottom: 22px;
+        }
+
+        .scroll-symbols {
+            font-size: 2.8em;
+            font-weight: bold;
+            letter-spacing: 12px;
+            color: #1a120b;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            margin-bottom: 5px;
+        }
+
+        .scroll-subtitle {
+            font-size: 0.8em;
+            color: #7a6345;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: bold;
+        }
+
+        /* FICHE PRINCIPALE DU SHINOBI */
+        .shinobi-card {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            background: #f4ece1;
+            border: 1px solid #b59f78;
+            padding: 20px;
+            margin-bottom: 22px;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.04);
+        }
+
+        .shinobi-info {
+            flex: 1.5;
+            min-width: 260px;
+        }
+
+        .shinobi-name {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #5a1111;
+            border-bottom: 2px solid #b59f78;
+            padding-bottom: 5px;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .shinobi-details {
+            font-size: 0.88em;
+            line-height: 1.9;
+            color: #2a2015;
+        }
+
+        .shinobi-portrait-box {
+            flex: 1;
+            min-width: 170px;
+            text-align: center;
+        }
+
+        .portrait-frame {
+            background: #111;
+            border: 2px solid #5a4223;
+            padding: 5px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+            display: inline-block;
+        }
+
+        .portrait-frame img {
+            width: 170px;
+            height: auto;
+            display: block;
+        }
+
+        .portrait-caption {
+            font-size: 0.72em;
+            color: #7a6345;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .section-label {
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+            color: #5a4223;
+        }
+
+        /* ACCORDÉONS HTML PURS */
+        .accordion {
+            margin-bottom: 10px;
+            border: 1px solid #b59f78;
+            background: #f4ece1;
+        }
+
+        .accordion-header {
+            background: #5a4223;
+            color: #f4e8d0;
+            padding: 11px 15px;
+            font-weight: bold;
+            font-size: 0.88em;
+            cursor: pointer;
+            letter-spacing: 1px;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-header::after {
+            content: '+';
+            font-size: 1.2em;
+        }
+
+        .accordion.active .accordion-header::after {
+            content: '-';
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding: 0 16px;
+            font-size: 0.88em;
+            line-height: 1.6;
+            background: #faf5ed;
+            color: #2a2015;
+        }
+
+        .accordion.active .accordion-content {
+            max-height: 300px;
+            padding: 16px;
+            border-top: 1px dashed #b59f78;
+            transition: max-height 0.3s ease-in;
+        }
+    </style>
+</head>
+<body>
+
+<div class="scroll-container">
+
+    <!-- EN-TÊTE DU ROULEAU -->
+    <div class="scroll-header">
+        <div class="scroll-symbols">天地</div>
+        <div class="scroll-subtitle">— Rouleau des Archives Officielles de Konoha —</div>
     </div>
-    <div style="font-size: 0.8em; color: #7a6345; text-transform: uppercase; letter-spacing: 3px; font-weight: bold;">
-        — Rouleau des Archives Officielles de Konoha —
-    </div>
-</div>
 
-<!-- FICHE PRINCIPALE DU SHINOBI -->
-<div style="display: flex; flex-wrap: wrap; gap: 20px; background: #f4ece1; border: 1px solid #b59f78; padding: 20px; margin-bottom: 22px; box-shadow: inset 0 0 15px rgba(0,0,0,0.04);">
-    
-    <!-- INFORMATIONS -->
-    <div style="flex: 1.5; min-width: 260px;">
-        <div style="font-size: 1.4em; font-weight: bold; color: #5a1111; border-bottom: 2px solid #b59f78; padding-bottom: 5px; margin-bottom: 12px; letter-spacing: 1px;">
-            KAZURA UCHIWA
+    <!-- FICHE PRINCIPALE DU SHINOBI -->
+    <div class="shinobi-card">
+        <!-- INFORMATIONS -->
+        <div class="shinobi-info">
+            <div class="shinobi-name">KAZURA UCHIWA</div>
+            <div class="shinobi-details">
+                <div><strong>STATUT :</strong> SHINOBI / ACTIF</div>
+                <div><strong>AFFILIATION :</strong> KONOHAGAKURE</div>
+                <div><strong>CLAN :</strong> CLAN UCHIWA</div>
+                <div><strong>NATURES :</strong> KATON & FŪTON</div>
+                <div><strong>RANG :</strong> JŌNIN</div>
+            </div>
         </div>
-        <div style="font-size: 0.88em; line-height: 1.9; color: #2a2015;">
-            <div><strong>STATUT :</strong> SHINOBI / ACTIF</div>
-            <div><strong>AFFILIATION :</strong> KONOHAGAKURE</div>
-            <div><strong>CLAN :</strong> CLAN UCHIWA</div>
-            <div><strong>NATURES :</strong> KATON & FŪTON</div>
-            <div><strong>RANG :</strong> JŌNIN</div>
+
+        <!-- PORTRAIT -->
+        <div class="shinobi-portrait-box">
+            <div class="portrait-frame">
+                <!-- Remplace src par le lien de ton image si besoin -->
+                <img src="kazura.webp" alt="Portrait de Kazura Uchiwa" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display:none; color: #fff; padding: 40px 10px; font-size: 0.8em;">[Image non trouvée]</div>
+            </div>
+            <div class="portrait-caption">[Sceau apposé au parchemin]</div>
         </div>
     </div>
 
-    <!-- PORTRAIT -->
-    <div style="flex: 1; min-width: 170px; text-align: center;">
-        <div style="background: #111; border: 2px solid #5a4223; padding: 5px; box-shadow: 0 3px 6px rgba(0,0,0,0.3);">
-            [[Fichier:kazura.webp|170px|center|alt=Portrait]]
+    <div class="section-label">📜 SEAUX DU ROULEAU (CLIQUER POUR DÉPLIER LES PAGES) :</div>
+
+    <!-- ACCORDÉON 1 -->
+    <div class="accordion" onclick="this.classList.toggle('active')">
+        <div class="accordion-header">📄 SECTION 01 — RAPPORT D'ÉVALUATION PSYCHOLOGIQUE & MENACE</div>
+        <div class="accordion-content">
+            <p style="margin: 0 0 8px 0;">Individu au profil tactique redoutable. Froid, pragmatique et ne démontrant aucune hésitation lors des engagements sur le terrain. Capacité de destruction de zone élevée et maîtrise de techniques de haut niveau.</p>
+            <p style="margin: 0; font-style: italic; color: #7a1111; font-weight: bold;">« Niveau de dangerosité critique pour toute force opposée extérieure. »</p>
         </div>
-        <div style="font-size: 0.72em; color: #7a6345; margin-top: 5px; font-style: italic;">[Sceau apposé au parchemin]</div>
+    </div>
+
+    <!-- ACCORDÉON 2 -->
+    <div class="accordion" onclick="this.classList.toggle('active')">
+        <div class="accordion-header">⚔️ SECTION 02 — ARSENAL & CAPACITÉS TECHNIQUES RÉPERTORIÉES</div>
+        <div class="accordion-content">
+            <ul style="margin: 0; padding-left: 20px;">
+                <li><strong style="color: #5a1111;">Maîtrise Oculaire :</strong> Anticipation des mouvements à haute vitesse et illusions d'envergure.</li>
+                <li><strong style="color: #5a1111;">Ninjutsu Offensif :</strong> Flux de feu destructeurs (Katon & Fūton).</li>
+                <li><strong style="color: #5a1111;">Armement / Manifestation :</strong> Structure spectrale lourde en situation de conflit majeur.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ACCORDÉON 3 -->
+    <div class="accordion" onclick="this.classList.toggle('active')">
+        <div class="accordion-header">🔒 SECTION 03 — NOTES ANNEXES & HISTORIQUE DES MISSIONS</div>
+        <div class="accordion-content">
+            <p style="margin: 0; font-style: italic; color: #5a4223;">Aucune restriction supplémentaire enregistrée à ce jour par le département. Les mises à jour de ce dossier doivent impérativement être validées par l'autorité supérieure.</p>
+        </div>
     </div>
 
 </div>
 
-<div style="font-size: 0.8em; font-weight: bold; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; color: #5a4223;">
-    📜 SEAUX DU ROULEAU (CLIQUER POUR DÉPLIER LES PAGES) :
-</div>
-
-<!-- ACCORDÉON 1 -->
-<div class="mw-collapsible mw-collapsed" style="margin-bottom: 10px; border: 1px solid #b59f78; background: #f4ece1;">
-    <div style="background: #5a4223; color: #f4e8d0; padding: 11px 15px; font-weight: bold; font-size: 0.88em; cursor: pointer; letter-spacing: 1px;">
-        📄 SECTION 01 — RAPPORT D'ÉVALUATION PSYCHOLOGIQUE & MENACE
-    </div>
-    <div class="mw-collapsible-content" style="padding: 16px; font-size: 0.88em; line-height: 1.6; border-top: 1px dashed #b59f78; background: #faf5ed; color: #2a2015;">
-        <p style="margin: 0 0 8px 0;">Individu au profil tactique redoutable. Froid, pragmatique et ne démontrant aucune hésitation lors des engagements sur le terrain. Capacité de destruction de zone élevée et maîtrise de techniques de haut niveau.</p>
-        <p style="margin: 0; font-style: italic; color: #7a1111; font-weight: bold;">« Niveau de dangerosité critique pour toute force opposée extérieure. »</p>
-    </div>
-</div>
-
-<!-- ACCORDÉON 2 -->
-<div class="mw-collapsible mw-collapsed" style="margin-bottom: 10px; border: 1px solid #b59f78; background: #f4ece1;">
-    <div style="background: #5a4223; color: #f4e8d0; padding: 11px 15px; font-weight: bold; font-size: 0.88em; cursor: pointer; letter-spacing: 1px;">
-        ⚔️ SECTION 02 — ARSENAL & CAPACITÉS TECHNIQUES RÉPERTORIÉES
-    </div>
-    <div class="mw-collapsible-content" style="padding: 16px; font-size: 0.88em; line-height: 1.6; border-top: 1px dashed #b59f78; background: #faf5ed; color: #2a2015;">
-        <ul style="margin: 0; padding-left: 20px;">
-            <li><strong style="color: #5a1111;">Maîtrise Oculaire :</strong> Anticipation des mouvements à haute vitesse et illusions d'envergure.</li>
-            <li><strong style="color: #5a1111;">Ninjutsu Offensif :</strong> Flux de feu destructeurs (Katon & Fūton).</li>
-            <li><strong style="color: #5a1111;">Armement / Manifestation :</strong> Structure spectrale lourde en situation de conflit majeur.</li>
-        </ul>
-    </div>
-</div>
-
-<!-- ACCORDÉON 3 -->
-<div class="mw-collapsible mw-collapsed" style="border: 1px solid #b59f78; background: #f4ece1;">
-    <div style="background: #5a4223; color: #f4e8d0; padding: 11px 15px; font-weight: bold; font-size: 0.88em; cursor: pointer; letter-spacing: 1px;">
-        🔒 SECTION 03 — NOTES ANNEXES & HISTORIQUE DES MISSIONS
-    </div>
-    <div class="mw-collapsible-content" style="padding: 16px; font-size: 0.88em; line-height: 1.6; border-top: 1px dashed #b59f78; background: #faf5ed; color: #2a2015;">
-        <p style="margin: 0; font-style: italic; color: #5a4223;">Aucune restriction supplémentaire enregistrée à ce jour par le département. Les mises à jour de ce dossier doivent impérativement être validées par l'autorité supérieure.</p>
-    </div>
-</div>
-
-</div>
-
+</body>
+</html>
