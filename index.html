@@ -42,12 +42,12 @@
             text-align: center;
         }
 
-        /* Conteneur principal qui affiche ton image de porte-clés entière */
         .scroll-container {
             position: relative;
             cursor: pointer;
             animation: float 3.5s ease-in-out infinite;
             display: inline-block;
+            text-align: center;
         }
 
         @keyframes float {
@@ -56,21 +56,20 @@
         }
 
         .keychain-img {
-            max-width: 450px;
+            max-width: 500px;
             width: 100%;
             height: auto;
             display: block;
             filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8));
         }
 
-        /* Ton logo positionné exactement par-dessus la zone du sceau du porte-clés */
         .seal-logo {
             position: absolute;
             top: 50%;
-            left: 31%; /* Ajuste ce pourcentage si besoin pour le décaler un tout petit peu à gauche ou à droite */
+            left: 50%;
             transform: translate(-50%, -50%);
-            width: 160px;
-            height: 160px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
             border: 3px solid #ffd700;
             box-shadow: 0 0 25px rgba(255, 215, 0, 0.8), 0 0 50px rgba(138, 43, 226, 0.9);
@@ -97,7 +96,6 @@
             50% { opacity: 1; }
         }
 
-        /* --- CONTENU DU PARCHEMIN DÉROULÉ --- */
         #main-content {
             max-width: 850px;
             width: 90%;
@@ -155,7 +153,7 @@
         <div class="welcome-title">— Archives de Zenkai NRP —</div>
         
         <div class="scroll-container" onclick="breakSeal()" title="Briser le sceau">
-            <img src="porte-cles.jpg" alt="Rouleau Shinobi" class="keychain-img">
+            <img src="fond-rouleau.jpg" alt="Rouleau Shinobi" class="keychain-img">
             <img src="logo.jpg" alt="Sceau Zenkai" class="seal-logo">
         </div>
 
