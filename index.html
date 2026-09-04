@@ -17,7 +17,7 @@
             overflow-x: hidden;
         }
 
-        /* --- ÉCRAN DE VERROUILLAGE / SCEAU --- */
+        /* --- ÉCRAN DU ROULEAU CYLINDRIQUE --- */
         #seal-screen {
             position: fixed;
             top: 0;
@@ -30,85 +30,116 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            transition: opacity 0.8s ease;
+            transition: opacity 0.8s ease, transform 0.8s ease;
         }
 
         .welcome-title {
             color: #f3e5ab;
-            font-size: 1.5em;
-            letter-spacing: 4px;
+            font-size: 1.6em;
+            letter-spacing: 5px;
             text-transform: uppercase;
-            margin-bottom: 30px;
-            text-shadow: 0 0 10px rgba(184, 134, 11, 0.6);
+            margin-bottom: 35px;
+            text-shadow: 0 0 12px rgba(184, 134, 11, 0.7);
             text-align: center;
         }
 
-        /* Rouleau fermé en lévitation */
-        .floating-scroll {
+        /* Corps du cylindre inspiré du modèle oriental */
+        .scroll-cylinder {
             position: relative;
-            width: 140px;
-            height: 280px;
-            background: linear-gradient(135deg, #2c1d3d 0%, #150b22 100%);
-            border: 3px solid #b8860b;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(138, 43, 226, 0.4);
+            width: 110px;
+            height: 290px;
+            background: linear-gradient(90deg, #11091d 0%, #291b3d 30%, #3d2657 50%, #291b3d 70%, #11091d 100%);
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.9), inset 0 0 20px rgba(138, 43, 226, 0.4);
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            animation: float 3s ease-in-out infinite;
-            transition: transform 0.2s;
+            animation: float 3.5s ease-in-out infinite;
+            transition: transform 0.3s ease;
         }
 
-        .floating-scroll:hover {
-            transform: scale(1.05);
+        /* Embouts supérieur et inférieur du cylindre */
+        .scroll-cylinder::before, .scroll-cylinder::after {
+            content: '';
+            position: absolute;
+            left: -8px;
+            right: -8px;
+            height: 18px;
+            background: linear-gradient(90deg, #1f142b, #4a3263, #1f142b);
+            border: 2px solid #b8860b;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+        }
+        .scroll-cylinder::before { top: -9px; }
+        .scroll-cylinder::after { bottom: -9px; }
+
+        .scroll-cylinder:hover {
+            transform: scale(1.06);
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(1deg); }
         }
 
-        /* Le Sceau / Logo cliquable */
+        /* Cordelette centrale nouée */
+        .scroll-rope {
+            position: absolute;
+            width: 126px;
+            height: 18px;
+            background: #8c7355;
+            border-top: 2px dashed #3a2e1d;
+            border-bottom: 2px dashed #3a2e1d;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.5);
+            z-index: 2;
+        }
+
+        /* Sceau Circulaire (Ton Logo) */
         .seal-logo {
-            width: 90px;
-            height: 90px;
+            position: relative;
+            width: 95px;
+            height: 95px;
             border-radius: 50%;
-            border: 2px solid #ffd700;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+            border: 3px solid #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.7), 0 0 35px rgba(138, 43, 226, 0.8);
             object-fit: cover;
-            transition: box-shadow 0.3s;
+            z-index: 3;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .floating-scroll:hover .seal-logo {
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.9), 0 0 35px rgba(138, 43, 226, 0.8);
+        .scroll-cylinder:hover .seal-logo {
+            transform: scale(1.08);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 1), 0 0 50px rgba(138, 43, 226, 1);
         }
 
         .seal-instruction {
-            color: #a89bc9;
-            font-size: 0.9em;
-            margin-top: 25px;
-            letter-spacing: 1px;
+            color: #b8a9d9;
+            font-size: 0.85em;
+            margin-top: 30px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
             animation: pulse 1.5s infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
+            0%, 100% { opacity: 0.4; }
             50% { opacity: 1; }
         }
 
-        /* --- CONTENU DU PARCHEMIN (Masqué au début) --- */
+        /* --- CONTENU DU PARCHEMIN (Déroulement) --- */
         #main-content {
             max-width: 850px;
             width: 90%;
             background: #e3d3b5;
             border: 3px solid #8c7355;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
-            padding: 30px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.8);
+            padding: 35px;
             color: #2a2015;
             opacity: 0;
-            transform: scale(0.9);
-            transition: all 1s ease;
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
             display: none;
             margin: 40px auto;
         }
@@ -116,15 +147,16 @@
         .unsealed #main-content {
             display: block;
             opacity: 1;
-            transform: scale(1);
+            transform: scaleY(1);
         }
 
         .unsealed #seal-screen {
             opacity: 0;
+            transform: scale(1.2);
             pointer-events: none;
         }
 
-        /* Styles de base du contenu du parchemin */
+        /* Styles du contenu */
         .scroll-header {
             text-align: center;
             border-bottom: 2px dashed #a68b5b;
@@ -150,28 +182,33 @@
 </head>
 <body>
 
+    <!-- ÉCRAN DU ROULEAU FERMÉ -->
     <div id="seal-screen">
         <div class="welcome-title">— Archives de Zenkai NRP —</div>
-        <div class="floating-scroll" onclick="breakSeal()" title="Briser le sceau">
+        
+        <div class="scroll-cylinder" onclick="breakSeal()" title="Briser le sceau">
+            <div class="scroll-rope"></div>
+            <!-- Remplace "logo.jpg" par le nom exact de ton fichier image sur GitHub -->
             <img src="logo.jpg" alt="Sceau Zenkai" class="seal-logo">
         </div>
+
         <div class="seal-instruction">[ Cliquez sur le sceau pour briser la protection ]</div>
     </div>
 
+    <!-- CONTENU DU PARCHEMIN DÉROULÉ -->
     <div id="main-content">
         <div class="scroll-header">
             <div class="scroll-symbols">天地</div>
             <div class="scroll-subtitle">— Encyclopédie Shinobi & Archives Officielles —</div>
         </div>
-        <div style="text-align: center; line-height: 1.8;">
-            <p><strong>Accès autorisé.</strong> Le sceau a été rompu avec succès.</p>
-            <p style="font-style: italic; color: #5a4223;">Bienvenue dans les dossiers secrets de Zenkai NRP.</p>
+        <div style="text-align: center; line-height: 1.9;">
+            <p style="font-size: 1.1em; color: #5a1111;"><strong>Sceau rompu avec succès.</strong></p>
+            <p style="font-style: italic; color: #5a4223;">Bienvenue dans les dossiers classifiés de l'encyclopédie Zenkai NRP.</p>
         </div>
     </div>
 
     <script>
         function breakSeal() {
-            // Effet d'ouverture
             document.body.classList.add('unsealed');
         }
     </script>
